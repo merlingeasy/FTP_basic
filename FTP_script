@@ -1,0 +1,31 @@
+#!/usr/bin/python
+
+import socket
+
+print ("bem vindo, digite um IP alvo para conexão FTP com user padrão")
+
+ip = input()
+
+
+ftp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ftp.connect((ip, 21))
+print ("conectando ao servidor")
+
+banner = ftp.recv(1024)
+print (banner)
+
+print ("enviando usuário")
+
+ftp.send(str.encode("USER ftp\r\n"))
+user = ftp.recv(1024)
+print (user)
+
+print ("Enviando a senha")
+
+ftp.send(str.encode("PASS ftp\r\n"))
+senha = ftp.recv(1024)
+print (senha)
+
+ftp.send(str.encode("HELP \r\n"))
+comando = ftp.recv(1024)
+print (comando)
